@@ -1,0 +1,139 @@
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle, #bd4e81 31%, #0786e3 100%), no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  width: 420px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.813);
+  backdrop-filter: blur(18px);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  border-radius: 10px;
+  padding: 30px 40px;
+}
+
+.container h1 {
+  font-size: 36px;
+  text-align: center;
+}
+
+.register-text {
+  margin-left: 93px;
+  margin-top: 10px;
+}
+
+.container .input-box,
+.container .choose-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0px;
+}
+
+.input-box input,
+.choose-box select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.813);
+  border-radius: 5px;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.input-box input::placeholder,
+.choose-box select {
+  color: #fff;
+}
+
+.choose-box select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  color: #fff;
+}
+
+.choose-box select:focus,
+.choose-box select:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.choose-box select option {
+  background: #333;
+  color: #fff;
+}
+
+.container .remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0px 15px;
+}
+
+.remember-forgot label input {
+  color: #fff;
+  margin-right: 3px;
+}
+
+.remember-forgot a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.container .btn {
+  width: 100%;
+  height: 45px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.container .register-link {
+  font-size: 14.5px;
+  text-align: center;
+  margin: 20px 0px 15px;
+}
+
+.register-link p a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link p a:hover {
+  text-decoration: underline;
+}
+
+.formerror {
+  color: red;
+}

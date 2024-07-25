@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.poppins-light {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+  
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+.poppins-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+  
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(circle, #bd4e81 31%, #0786e3 100%);;
+}
+
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.container header{
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+
+.container .form{
+    margin-top: 30px;
+}
+
+.form .input-box{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input-box label{
+    color: #333;
+}
+
+.form :where(.input-box input, .choose-box){
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.form .columnA{
+    display: flex;
+    column-gap: 10px;
+}
+
+.form .columnB{
+    display: flex;
+    column-gap: 10px;
+}
+
+.form .columnC{
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.form .gender-box{
+    margin-top: 20px;
+}
+
+.gender-box h3{
+    margin-top: 20px;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.form :where(.gender-option, .gender){
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+    flex-wrap: wrap;
+}
+
+.form .gender{
+    column-gap: 5px;
+    cursor: pointer;
+}
+
+.gender input{
+    accent-color: rgb(189, 78, 129);
+}
+
+.form :where(.gender input, .gender label){
+    cursor: pointer;
+}
+
+.choose-box select{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #707070;
+}
+
+.choose-box1{
+    margin-top: 20px;
+}
+
+.choose-box1 select {
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    font-size: 1rem;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 0 15px;
+    height: 50px;
+    }
+
+.form button{
+    height: 55px;
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    background-color: rgb(189, 78, 129);
+    border: none;
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all 0.2s ease;
+}
+
+.form button:hover{
+    background-color: rgb(56, 65, 130);
+}
+
+.input-box span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.input-box .Prescription{
+    width: auto;
+    cursor: pointer;
+    border: 3px solid #BD4E81;
+    transition: all .5s ease-in-out;
+}
+
+.input-box .Prescription:hover{
+    background-color: #BD4E81;
+    /* border: 4px solid #384182; */
+    color: white;
+    
+}
+
+.columnd{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.columnd .Prescription{
+    width: 50%;
+    border: 3px solid #BD4E81;
+    padding: 10px 0;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #707070;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    margin: 10px 0;
+}
+
+.columnd .Profile{
+    width: 100%;
+}
+
+
+.columnd .Prescription:hover{
+    background-color: #BD4E81;
+    /* border: 4px solid #384182; */
+    color: white;
+    
+}
+
+/* Responsive */
+@media screen and (max-width: 500px){
+    .form .columnA .columnB .columnC{
+        flex-wrap: wrap;
+    }
+    .form :where(.gender-option, .gender){
+        row-gap: 15px;
+    }
+}

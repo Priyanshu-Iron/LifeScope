@@ -1,0 +1,75 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    height: auto;
+    width: 100%;
+    background: #bd4e81;
+background: radial-gradient(circle, #bd4e81 31%, #0786e3 100%);
+}
+
+h1{
+text-align: center;
+font-size: 50px;
+color: whitesmoke;
+font-family: monospace;
+}
+
+.accordian{
+width: 50%;
+margin: 20px auto;
+}
+
+.qustion{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 18px;
+    font-family: sans-serif;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+    
+}
+
+.qustion h4{
+    font-size: 20px;
+}
+
+.answer{
+    background-color: whitesmoke;
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+     box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+    display: none;
+}
+
+.contact{
+    color: white;
+    text-align: center;
+    width: 38%;
+    margin: auto;
+    border-radius: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.accordian.active .answer{
+    display: block;
+}
+
+.qustion .minus{
+    display: none;
+}
+
+.accordian.active .minus{
+    display: block;
+}
+
+.accordian.active .plus{
+    display: none;
+}

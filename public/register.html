@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome To LifeScope</title>
+  <link rel="stylesheet" href="register.css" />
+</head>
+<body>
+  <div class="container">
+    <form action="/sign_up" name="myForm" id="myForm" onsubmit="return validateForm()" method="post">
+      <h1>Sign up</h1>
+      <p class="register-text">Create Your Account</p>
+      <div class="input-box" id="LifeScopeID">
+        <label for="LifeScopeID">Health-Id/Licence Number</label>
+        <input type="text" id="LifeScopeID" name="LifeScopeID" placeholder="Enter your Health-Id/Licence Number" required />
+        <b><span class="formerror"></span></b>
+      </div>
+      <div class="input-box" id="fphone">
+        <label for="fphone">Phone Number</label>
+        <input type="tel" id="fphone" name="fphone" placeholder="Enter your Phone Number" required />
+        <b><span class="formerror"></span></b>
+      </div>
+      <div class="choose-box" id="role">
+        <label for="role">Choose Role</label>
+        <select id="role" name="role" required>
+          <option hidden>Choose Role</option>
+          <option>Patient</option>
+          <option>Physician</option>
+          <option>Pharmacist</option>
+        </select>
+        <b><span class="formerror"></span></b>
+      </div>
+      <div class="input-box" id="email">
+        <label for="email">Email ID</label>
+        <input type="email" id="femail" name="email" placeholder="Enter your Email ID" required />
+        <b><span class="formerror"></span></b>
+      </div>
+      <div class="input-box" id="Mpassword">
+        <label for="Mpassword">Password</label>
+        <input type="password" id="Mpassword" name="Mpassword" placeholder="Password" required />
+        <b><span class="formerror"></span></b>
+      </div>
+      <div class="input-box" id="Cpassword">
+        <label for="Cpassword">Confirm Password</label>
+        <input type="password" id="Cpassword" name="Cpassword" placeholder="Confirm Password" required />
+        <b><span class="formerror"></span></b>
+      </div>
+      <button type="submit" class="btn">Sign up</button>
+      <div class="register-link">
+        <p>Already have an account? <a href="Home Page.html">Login</a></p>
+      </div>
+    </form>
+  </div>
+  <script>
+    function clearErrors() {
+      let errors = document.getElementsByClassName('formerror');
+      for (let item of errors) {
+        item.innerHTML = "";
+      }
+    }
+  
+    function seterror(id, error) {
+      let element = document.getElementById(id);
+      element.getElementsByClassName('formerror')[0].innerHTML = error;
+    }
+  
+    function validateForm() {
+      let returnval = true;
+      clearErrors();
+  
+      // Validate Health-Id/Licence Number
+      let LifeScopeID = document.forms['myForm']['LifeScopeID'].value;
+      if (LifeScopeID.length < 5) {
+        seterror("LifeScopeID", "*Health-Id/Licence Number should be at least 5 characters long");
+        returnval = false;
+      }
+  
+      // Validate Phone Number
+      let fphone = document.forms['myForm']['fphone'].value;
+      let phonePattern = /^[0-9]{10}$/;
+      if (!phonePattern.test(fphone)) {
+        seterror("fphone", "*Phone number should be 10 digits");
+        returnval = false;
+      }
+  
+      // Validate Role Selection
+      let role = document.forms['myForm']['role'].value;
+      if (role === "Choose Role") {
+        seterror("role", "*Please select a role");
+        returnval = false;
+      }
+  
+      // Validate Email
+      let email = document.forms['myForm']['email'].value;
+      let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      if (!emailPattern.test(email)) {
+        seterror("email", "*Please enter a valid email address");
+        returnval = false;
+      }
+  
+      // Validate Password
+      let Mpassword = document.forms['myForm']['Mpassword'].value;
+      if (Mpassword.length < 6) {
+        seterror("Mpassword", "*Password should be at least 6 characters long");
+        returnval = false;
+      }
+  
+      // Validate Confirm Password
+      let Cpassword = document.forms['myForm']['Cpassword'].value;
+      if (Cpassword !== Mpassword) {
+        seterror("Cpassword", "*Passwords do not match");
+        returnval = false;
+      }
+  
+      return returnval;
+    }
+  </script>
+</body>
+</html>

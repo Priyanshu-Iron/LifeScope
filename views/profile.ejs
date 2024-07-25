@@ -1,0 +1,70 @@
+<!-- views/profile.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Information</title>
+    <link rel="stylesheet" href="/Patient Detail Form.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Patient Information</h1>
+        </header>
+        <form class="form">
+            <div class="input-box">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" value="<%= user.fullName %>" readonly>
+            </div>
+
+            <div class="columnA">
+                <div class="input-box">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" value="<%= user.firstName %>" readonly>
+                </div>
+
+                <div class="input-box">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" value="<%= user.lastName %>" readonly>
+                </div>
+            </div>
+
+            <div class="columnB">
+                <div class="input-box">
+                    <label for="age">Age</label>
+                    <input type="text" id="age" value="<%= user.age %>" readonly>
+                </div>
+
+                <div class="input-box">
+                    <label for="dob">DOB</label>
+                    <input type="date" id="dob" value="<%= user.dob.toISOString().substr(0, 10) %>" readonly>
+                </div>
+            </div>
+
+            <div class="columnC">
+                <div class="input-box">
+                    <label for="weight">Weight</label>
+                    <input type="text" id="weight" value="<%= user.weight %>" readonly>
+                </div>
+
+                <div class="input-box">
+                    <label for="height">Height</label>
+                    <input type="text" id="height" value="<%= user.height %>" readonly>
+                </div>
+
+                <div class="choose-box1">
+                    <label for="blood-group">Blood Group</label>
+                    <input type="text" id="blood-group" value="<%= user.bloodGroup %>" readonly>
+                </div>
+            </div>
+
+            <div class="gender-box">
+                <h3>Gender</h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input type="radio" id="male" name="gender" <%= user.gender === 'Male' ? 'checked' : '' %> disabled>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="female" name="gender" <%= user.gender === 'Female' ? 'checked' : '' %> disabled

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Detail Form</title>
+    <link rel="stylesheet" href="Patient Detail Form.css">
+</head>
+<body>
+    <section class="container">
+        <header>Please Fill the Details.</header>
+        <form action="/submit_patient_details" method="post" class="form">
+            <div class="input-box">
+                <label>Full Name</label>
+                <input type="text" name="full_name" placeholder="Full Name" required>
+            </div>
+
+            <div class="columnA">
+                <div class="input-box">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                </div>
+
+                <div class="input-box">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <div class="columnB">
+                <div class="input-box">
+                    <label>Age</label>
+                    <input type="number" name="age" placeholder="Age" required>
+                </div>
+    
+                <div class="input-box">
+                    <label>DOB</label>
+                    <input type="date" name="dob" placeholder="Date-of-Birth" required>
+                </div>
+            </div>
+
+            <div class="columnC">
+                <div class="input-box">
+                    <label>Weight</label>
+                    <input type="number" name="weight" placeholder="Weight" required>
+                </div>
+    
+                <div class="input-box">
+                    <label>Height</label>
+                    <input type="number" name="height" placeholder="Height" required>
+                </div>
+
+                <div class="choose-box1">
+                    <label>Blood Group</label>
+                    <select name="blood_group">
+                        <option hidden>Blood Group</option>
+                        <option>A+</option>
+                        <option>B</option>
+                        <option>B+</option>
+                        <option>O</option>
+                        <option>O+</option>
+                        <option>AB</option>
+                        <option>AB+</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="gender-box">
+                <h3>Gender</h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input type="radio" id="male" name="gender" value="Male" required/>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="female" name="gender" value="Female" required/>
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="other" name="gender" value="Other" required/>
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="choose-box">
+                <select name="chronic_illness">
+                    <option hidden>Chronic Illness</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                </select>
+            </div>
+
+            <div class="input-box">
+                <label for="history">Medical History</label>
+                <input type="text" name="history" id="history" placeholder="Enter Health Id"/>
+                <span>
+                    <p>Or</p>
+                    <input type="button" value="Upload Previous Prescription" class="Prescription">
+                </span>
+            </div>
+            
+            <div class="columnd">
+                <input type="button" value="Upload Prescription" class="Prescription">
+                <input type="button" value="Upload Lab Reports" class="Prescription">
+            </div>
+            
+            <div class="columnd">
+                <input type="button" value="Upload Profile Pic" class="Prescription Profile">
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</body>
+</html>
