@@ -69,16 +69,8 @@ app.post("/sign_up", async (req, res) => {
         await newUser.save();
         console.log("Record Inserted Successfully");
 
-        // Redirect based on role
-        if (role === 'Patient') {
-            return res.redirect('/Patient_Detail_Form.html');
-        } else if (role === 'Physician') {
-            return res.redirect('/physician_form.html'); // Adjust paths as needed
-        } else if (role === 'Pharmacist') {
-            return res.redirect('/pharmacist_form.html'); // Adjust paths as needed
-        } else {
-            return res.status(400).send("Invalid role");
-        }
+        // Redirect to the login page
+        return res.redirect('/Home Page.html');
     } catch (err) {
         console.error("Error inserting record:", err);
         return res.status(500).send("Error inserting record");
@@ -106,15 +98,22 @@ app.post("/login", async (req, res) => {
         // Store user information in session
         req.session.user = user;
 
-        // Redirect based on role
-        if (user.role === 'Patient') {
-            return res.redirect('/Patient_Detail_Form.html');
-        } else if (user.role === 'Physician') {
-            return res.redirect('/physician_form.html'); // Adjust paths as needed
-        } else if (user.role === 'Pharmacist') {
-            return res.redirect('/pharmacist_form.html'); // Adjust paths as needed
+        // Check if user has filled out the form
+        const isFormFilled = user.fullName && user.firstName && user.lastName;
+
+        // Redirect based on form completion and role
+        if (isFormFilled) {
+            return res.redirect('/profile');
         } else {
-            return res.status(400).send("Invalid role");
+            if (user.role === 'Patient') {
+                return res.redirect('/Patient_Detail_Form.html');
+            } else if (user.role === 'Physician') {
+                return res.redirect('/physician_form.html'); // Adjust paths as needed
+            } else if (user.role === 'Pharmacist') {
+                return res.redirect('/pharmacist_form.html'); // Adjust paths as needed
+            } else {
+                return res.status(400).send("Invalid role");
+            }
         }
     } catch (err) {
         console.error("Error during login", err);
@@ -147,6 +146,9 @@ app.post("/submit_patient_details", async (req, res) => {
             chronicIllness: chronic_illness,
             medicalHistory: medical_history,
         }, { new: true });
+
+        // Update session with new user data
+        req.session.user = updatedUser;
 
         res.redirect('/profile');
     } catch (err) {
