@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.poppins-light {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+  
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+.poppins-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+  
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(circle, #bd4e81 31%, #0786e3 100%);
+}
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: #f0ececec;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container h4{
+    font-size: 2.0rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+.doc{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doc img{
+    height: 200px;
+    width: 200px;
+}
+.subcontainer
+{
+
+   padding:25px;
+   margin-left: 20px;
+   margin-right: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.name
+{
+    font-size: medium;
+    font-weight: 500;
+}
+.location
+{
+    font-size: small;
+    font-weight: 500;
+    color: #979494;
+}
+.date
+{
+    display: flex;
+    justify-content: space-around;
+    margin: 5px;
+}
+.dob {
+    border: solid #bd4e81;
+    border-radius: 8px;
+    padding: 2px 2px;
+}
+.minor_box{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+.box1
+{
+    
+    border: solid  #bd4e81;
+    width:70px;
+    height:70px;
+    border-radius: 8px;
+}
+.box1 img {
+    display: inline;
+    height: 55px;
+    width: 65px;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.minor_box1{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+.minor_box1 p
+{ margin-left:2px;}
+
+.minor_box2{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}

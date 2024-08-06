@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, <%= user.fullName %>!</h1>
+    <p>Role: <%= user.role %></p>
+
+    <h2>Actions</h2>
+    <ul>
+        <% if (user.role === 'Patient') { %>
+            <li><a href="/patient_profile">View Patient Profile</a></li>
+            <li><a href="/Patient_Form.html">Fill Patient Form</a></li>
+        <% } else if (user.role === 'Physician') { %>
+            <li><a href="/physician_profile">View Physician Profile</a></li>
+            <li><a href="/Physician_Form.html">Fill Physician Form</a></li>
+        <% } else if (user.role === 'Pharmacist') { %>
+            <li><a href="/pharmacist_profile">View Pharmacist Profile</a></li>
+            <li><a href="/Pharmacist_Form.html">Fill Pharmacist Form</a></li>
+        <% } %>
+    </ul>
+
+    <h2><a href="/Home Page.html">Logout</a></h2>
+</body>
+</html>

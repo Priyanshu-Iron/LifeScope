@@ -3,9 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Physician Detail Form</title>
+    <link rel="stylesheet" href="physicianform.css">
 </head>
 <body>
-    <h1>Physican</h1>
+    <section class="container">
+        <header>Create your Profile.</header>
+        <div class="profile-pic">
+            <label class="-label" for="file">
+              <span class="glyphicon glyphicon-camera"></span>
+              <span>Change Image</span>
+            </label>
+            <input id="file" type="file" onchange="loadFile(event)" name="profile_pic"/>
+            <img src="profile.jpg" id="output" width="200" />
+        </div>
+        <form action="/submit_physician_details" method="post" class="form" enctype="multipart/form-data">
+            <div class="columnA">
+                <div class="input-box">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                </div>
+
+                <div class="input-box">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <div class="columnB">
+                <div class="input-box">
+                    <label>DOB</label>
+                    <input type="date" name="dob" placeholder="Date of Birth" required>
+                </div>
+                <div class="input-box">
+                    <label>Contact Number</label>
+                    <input type="text" name="contact_number" placeholder="Contact Number" required>
+                </div>
+            </div>
+
+            <div class="gender-box">
+                <h3>Gender</h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input type="radio" id="male" name="gender" value="Male" required />
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="female" name="gender" value="Female" required />
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="other" name="gender" value="Other" required />
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="4" cols="50" placeholder="Enter Your Address"></textarea>
+            </div>
+
+            <div class="input-box">
+                <label for="specialization">Specialization</label>
+                <input type="text" name="specialization" id="specialization" placeholder="Enter your Specialization" required />
+            </div>
+
+            <div class="input-box">
+                <label for="experience">Experience (Years)</label>
+                <input type="text" name="experience" id="experience" placeholder="Enter your years of Experience" required />
+            </div>
+
+            <div class="input-box">
+                <label for="available_days">Available Days</label>
+                <input type="text" name="available_days" id="available_days" placeholder="Enter the days of Availability" required />
+            </div>
+
+            <div class="columnF">
+                <div class="input-box">
+                    <label for="availability_start_time">Availability Starting Time</label>
+                    <input type="time" name="availability_start_time" id="availability_start_time" required />
+                </div>
+                <div class="input-box">
+                    <label for="availability_end_time">Availability Ending Time</label>
+                    <input type="time" name="availability_end_time" id="availability_end_time" required />
+                </div>
+            </div> 
+            
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    <script src="physicianform.js"></script>
 </body>
 </html>

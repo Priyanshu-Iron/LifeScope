@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist Detail Form</title>
+    <link rel="stylesheet" href="pharmacist_details.css">
+</head>
+<body>
+    <section class="container">
+        <header>Create your Profile.</header>
+        <div class="profile-pic">
+            <label class="-label" for="file">
+              <span class="glyphicon glyphicon-camera"></span>
+              <span>Change Image</span>
+            </label>
+            <input id="file" type="file" onchange="loadFile(event)" name="profile_pic"/>
+            <img src="/images/profile.jpg" id="output" width="200" />
+        </div>
+        <form action="/submit_pharmacist_details" method="post" class="form" enctype="multipart/form-data">
+            <div class="columnA">
+                <div class="input-box">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                </div>
+
+                <div class="input-box">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <div class="columnB">
+                <div class="input-box">
+                    <label>DOB</label>
+                    <input type="date" name="dob" placeholder="Date of Birth" required>
+                </div>
+                <div class="input-box">
+                    <label>Contact Number</label>
+                    <input type="text" name="contact_number" placeholder="Contact Number" required>
+                </div>
+            </div>
+
+            <div class="gender-box">
+                <h3>Gender</h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input type="radio" id="male" name="gender" value="Male" required />
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="female" name="gender" value="Female" required />
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="other" name="gender" value="Other" required />
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="4" cols="50" placeholder="Enter Your Address"></textarea>
+            </div>
+
+            <div class="input-box">
+                <label for="license">License Number</label>
+                <input type="text" name="license" id="license" placeholder="Enter your License Number" required />
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    <script src="/javascripts/pharmacistform.js"></script>
+</body>
+</html>

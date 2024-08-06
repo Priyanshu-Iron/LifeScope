@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist Profile</title>
+    <link rel="stylesheet" href="/profile.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Pharmacist Profile</h1>
+        </header>
+        <section class="profile-details">
+            <div class="detail-box">
+                <label>Full Name:</label>
+                <span><%= user.firstName + ' ' + user.lastName %></span>
+            </div>
+            <div class="detail-box">
+                <label>Date of Birth:</label>
+                <% 
+                    let dobString = '';
+                    if (user.dob) {
+                        const dob = new Date(user.dob);
+                        dobString = dob.toDateString();
+                    }
+                %>
+                <span><%= dobString %></span>
+            </div>
+            <div class="detail-box">
+                <label>Contact Number:</label>
+                <span><%= user.contactNumber %></span>
+            </div>
+            <div class="detail-box">
+                <label>Address:</label>
+                <span><%= user.address %></span>
+            </div>
+            <div class="detail-box">
+                <label>License:</label>
+                <span><%= user.license %></span>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
