@@ -47,6 +47,12 @@
         <input type="password" id="Cpassword" name="Cpassword" placeholder="Confirm Password" required />
         <b><span class="formerror"></span></b>
       </div>
+      <div class="T_C">
+        <input type="checkbox" id="checkbox1" required/>
+        <label for="checkbox1">I agree <a href="Terms&Conditions.html">Terms & Conditions</a> </label>
+        <br>
+        <br>
+      </div>
       <button type="submit" class="btn">Sign up</button>
       <div class="register-link">
         <p>Already have an account? <a href="Home Page.html">Login</a></p>
@@ -78,12 +84,12 @@
       }
   
       // Validate Phone Number
-      let fphone = document.forms['myForm']['fphone'].value;
-      let phonePattern = /^[0-9]{10}$/;
-      if (!phonePattern.test(fphone)) {
-        seterror("fphone", "*Phone number should be 10 digits");
-        returnval = false;
-      }
+      // let fphone = document.forms['myForm']['fphone'].value;
+      // let phonePattern = /^[0-9]{10}$/;
+      // if (!phonePattern.test(fphone)) {
+      //   seterror("fphone", "*Phone number should be 10 digits");
+      //   returnval = false;
+      // }
   
       // Validate Role Selection
       let role = document.forms['myForm']['role'].value;

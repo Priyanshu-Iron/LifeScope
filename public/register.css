@@ -137,3 +137,8 @@ body {
 .formerror {
   color: red;
 }
+
+.T_C a{
+  text-decoration: underline;
+  color: #fff;
+}
