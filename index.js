@@ -8,8 +8,10 @@ const path = require("path");
 
 const app = express();
 
+// Set view engine to EJS
 app.set('view engine', 'ejs');
 
+// Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,19 +23,20 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/Database', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', (error) => console.error("Error in Connecting Database", error));
 db.once('open', () => console.log("Connected to Database"));
 
-// Define a schema and model
+// User schema and model
 const userSchema = new mongoose.Schema({
     LifeScopeID: Number,
-    contactNumber: String, // Ensure only one mobile number field
+    contactNumber: String,
     role: String,
     email: { type: String, required: true },
     password: { type: String, required: true },
@@ -59,6 +62,18 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+// Vital schema and model
+const vitalSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    heartRate: { type: Number, required: true },
+    bloodPressure: { type: String, required: true },
+    date: { type: Date, default: Date.now },
+    time: { type: String, required: true },
+    warnings: { type: String }
+});
+
+const Vital = mongoose.model('Vital', vitalSchema);
+
 // File upload configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -71,6 +86,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Routes
+
+// Home route
+app.get("/", (req, res) => {
+    res.render('index'); // Assuming you have an 'index.ejs' for the homepage
+});
+
+// Sign-up route
 app.post("/sign_up", async (req, res) => {
     const { LifeScopeID, role, email, Mpassword, Cpassword } = req.body;
 
@@ -95,6 +118,7 @@ app.post("/sign_up", async (req, res) => {
     }
 });
 
+// Login route
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
@@ -121,6 +145,50 @@ app.post("/login", async (req, res) => {
     }
 });
 
+// Dashboard route
+app.get("/dashboard", (req, res) => {
+    const { user } = req.session;
+
+    if (!user) {
+        return res.redirect('/');
+    }
+
+    res.render('dashboard', { user });
+});
+
+// Dynamic profile route
+app.get("/profile/:userId", async (req, res) => {
+    const { userId } = req.params;
+    const { user } = req.session;
+
+    if (!user) {
+        return res.redirect('/');
+    }
+
+    try {
+        const profileUser = await User.findById(userId);
+
+        if (!profileUser) {
+            return res.status(404).send("User not found");
+        }
+
+        // Determine which profile to render based on role
+        if (profileUser.role === 'Patient') {
+            res.render('patient_profile', { user: profileUser });
+        } else if (profileUser.role === 'Physician') {
+            res.render('physician_profile', { user: profileUser });
+        } else if (profileUser.role === 'Pharmacist') {
+            res.render('pharmacist_profile', { user: profileUser });
+        } else {
+            res.status(400).send("Invalid role");
+        }
+    } catch (err) {
+        console.error("Error fetching user profile", err);
+        res.status(500).send("Error fetching user profile");
+    }
+});
+
+// Submit patient details route
 app.post("/submit_patient_details", async (req, res) => {
     const { user } = req.session;
     const {
@@ -156,34 +224,7 @@ app.post("/submit_patient_details", async (req, res) => {
     }
 });
 
-app.post("/submit_pharmacist_details", upload.single('profile_pic'), async (req, res) => {
-    const { user } = req.session;
-    const { first_name, last_name, dob, contact_number, gender, address, license } = req.body;
-
-    if (!user) {
-        return res.status(401).send("User not logged in");
-    }
-
-    try {
-        const updatedUser = await User.findByIdAndUpdate(user._id, {
-            firstName: first_name,
-            lastName: last_name,
-            dob,
-            contactNumber: contact_number,
-            gender,
-            address,
-            license,
-        }, { new: true });
-
-        req.session.user = updatedUser;
-
-        res.redirect('/dashboard');
-    } catch (err) {
-        console.error("Error submitting pharmacist details", err);
-        res.status(500).send("Error submitting pharmacist details");
-    }
-});
-
+// Submit physician details route
 app.post("/submit_physician_details", upload.single('profile_pic'), async (req, res) => {
     const { user } = req.session;
     const { first_name, last_name, dob, contact_number, gender, address, specialization, experience, available_days, availability_start_time, availability_end_time } = req.body;
@@ -216,42 +257,166 @@ app.post("/submit_physician_details", upload.single('profile_pic'), async (req, 
     }
 });
 
-// Profile view routes
-app.get("/patient_profile", (req, res) => {
+// Submit pharmacist details route
+app.post("/submit_pharmacist_details", upload.single('profile_pic'), async (req, res) => {
     const { user } = req.session;
-    if (!user || user.role !== 'Patient') {
-        return res.redirect('/');
+    const { first_name, last_name, dob, contact_number, gender, address, license } = req.body;
+
+    if (!user) {
+        return res.status(401).send("User not logged in");
     }
-    res.render('patient_profile', { user });
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(user._id, {
+            firstName: first_name,
+            lastName: last_name,
+            dob,
+            contactNumber: contact_number,
+            gender,
+            address,
+            license,
+        }, { new: true });
+
+        req.session.user = updatedUser;
+
+        res.redirect('/dashboard');
+    } catch (err) {
+        console.error("Error submitting pharmacist details", err);
+        res.status(500).send("Error submitting pharmacist details");
+    }
 });
 
-app.get("/physician_profile", (req, res) => {
+// Route for physicians to view all patients
+app.get("/view_patients", async (req, res) => {
     const { user } = req.session;
+
     if (!user || user.role !== 'Physician') {
         return res.redirect('/');
     }
-    res.render('physician_profile', { user });
+
+    try {
+        const patients = await User.find({ role: 'Patient' });
+        res.render('view_patients', { user, patients });
+    } catch (err) {
+        console.error("Error fetching patients", err);
+        res.status(500).send("Error fetching patients");
+    }
 });
 
-app.get("/pharmacist_profile", (req, res) => {
+// Dynamic patient profile route (for physicians to view individual patient profiles)
+app.get("/patient_profile/:patientId", async (req, res) => {
+    const { patientId } = req.params;
     const { user } = req.session;
-    if (!user || user.role !== 'Pharmacist') {
+
+    if (!user || user.role !== 'Physician') {
         return res.redirect('/');
     }
-    res.render('pharmacist_profile', { user });
+
+    try {
+        const patient = await User.findById(patientId);
+
+        if (!patient) {
+            return res.status(404).send("Patient not found");
+        }
+
+        res.render('patient_profile', { user: patient, viewer: user });
+    } catch (err) {
+        console.error("Error fetching patient profile", err);
+        res.status(500).send("Error fetching patient profile");
+    }
 });
 
-// Dashboard route
-app.get("/dashboard", (req, res) => {
+
+// Route for physicians to view a specific patient's vitals
+app.get('/patient_vitals/:patientId', async (req, res) => {
+    const { patientId } = req.params;
     const { user } = req.session;
 
-    if (!user) {
+    if (!user || user.role !== 'Physician') {
         return res.redirect('/');
     }
 
-    res.render('dashboard', { user });
+    try {
+        const patient = await User.findById(patientId);
+        if (!patient) {
+            return res.status(404).send("Patient not found");
+        }
+
+        const vitals = await Vital.find({ userId: patientId });
+        res.render('patient_vitals', { user, patient, vitals });
+    } catch (err) {
+        console.error("Error fetching patient vitals", err);
+        res.status(500).send("Error fetching patient vitals");
+    }
 });
 
-app.listen(3000, () => {
-    console.log("Listening on port 3000");
+// Route to display the vitals form
+app.get('/vitals', (req, res) => {
+    const { user } = req.session;
+
+    if (!user || user.role !== 'Patient') {
+        return res.redirect('/');
+    }
+
+    res.render('vitals');
+});
+
+// Route to handle vitals submission
+app.post('/submit_vitals', async (req, res) => {
+    const { user } = req.session;
+    const { heartRate, bloodPressure, date, time, warnings } = req.body;
+
+    if (!user || user.role !== 'Patient') {
+        return res.redirect('/');
+    }
+
+    try {
+        const newVital = new Vital({
+            userId: user._id,
+            heartRate,
+            bloodPressure,
+            date,
+            time,
+            warnings
+        });
+
+        await newVital.save();
+        res.redirect('/dashboard');
+    } catch (err) {
+        console.error("Error submitting vitals", err);
+        res.status(500).send("Error submitting vitals");
+    }
+});
+
+// Route to view vitals
+app.get('/view_vitals', async (req, res) => {
+    const { user } = req.session;
+
+    if (!user || user.role !== 'Patient') {
+        return res.redirect('/');
+    }
+
+    try {
+        const vitals = await Vital.find({ userId: user._id });
+        res.render('view_vitals', { user, vitals });
+    } catch (err) {
+        console.error("Error fetching vitals", err);
+        res.status(500).send("Error fetching vitals");
+    }
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).send("Error logging out");
+        }
+        res.redirect('/');
+    });
+});
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
