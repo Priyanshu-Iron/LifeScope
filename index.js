@@ -290,7 +290,7 @@ app.post("/submit_pharmacist_details", upload.single('profile_pic'), async (req,
 app.get("/view_patients", async (req, res) => {
     const { user } = req.session;
 
-    if (!user || user.role !== 'Physician') {
+    if (!user || (user.role !== 'Physician' && user.role !== 'Pharmacist')) {
         return res.redirect('/');
     }
 
@@ -308,7 +308,7 @@ app.get("/patient_profile/:patientId", async (req, res) => {
     const { patientId } = req.params;
     const { user } = req.session;
 
-    if (!user || user.role !== 'Physician') {
+    if (!user || (user.role !== 'Physician' && user.role !== 'Pharmacist')) {
         return res.redirect('/');
     }
 
@@ -332,7 +332,7 @@ app.get('/patient_vitals/:patientId', async (req, res) => {
     const { patientId } = req.params;
     const { user } = req.session;
 
-    if (!user || user.role !== 'Physician') {
+    if (!user || (user.role !== 'Physician' && user.role !== 'Pharmacist')) {
         return res.redirect('/');
     }
 

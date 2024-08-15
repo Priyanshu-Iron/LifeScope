@@ -1,0 +1,170 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle, #bd4e81 31%, #0786e3 100%),no-repeat;
+    background-size: cover;
+    color: #ffffff;
+    padding: 20px 0;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+p {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: #f8f9fa;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Container Styling */
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 15px;
+    flex: 1 0 30%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 20px; /* Padding inside the card */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 4;
+    padding-top:10px;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    color: #ffffff;
+    text-align: center;
+   
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* List Group Styling */
+.list-group {
+    padding-left: 0; /* Removes default padding */
+    margin-bottom: 30px;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 10px;
+    border-radius: 8px; /* Rounded corners */
+}
+
+.list-group-item a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(0, 123, 255, 0.8);
+    color: white;
+}
+
+.list-group-item:hover a {
+    color: white;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Logout Link */
+a {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.mt-6
+{
+    border: solid 2px #bd4e81 ;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        flex: 1 0 100%;
+    }
+}
+.logout{
+    margin-bottom :0px;
+
+}
