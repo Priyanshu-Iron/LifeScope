@@ -6,8 +6,23 @@ const session = require("express-session");
 const multer = require("multer");
 const path = require("path");
 const UserModel = require('./model/medicineSchema')
-
 const app = express();
+
+// For Notification Alert "VITALS"
+const http = require('http');
+const socketIo = require('socket.io');
+
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+    console.log('New client connected');
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
+
 
 // Set view engine to EJS
 app.set('view engine', 'ejs');
@@ -21,7 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: { secure: false } // Set to true if using HTTPS
 }));
 
 // Connect to MongoDB
@@ -382,12 +398,31 @@ app.post('/submit_vitals', async (req, res) => {
         });
 
         await newVital.save();
+
+        // Check for abnormal vitals and notify physicians and pharmacists
+        if (heartRate > 100 || bloodPressure === 'high') { // Example conditions
+            const usersToNotify = await User.find({
+                $or: [{ role: 'Physician' }, { role: 'Pharmacist' }]
+            });
+
+            usersToNotify.forEach(u => {
+                io.emit('vitalAlert', {
+                    userId: user._id,
+                    heartRate,
+                    bloodPressure,
+                    warnings,
+                    role: u.role
+                });
+            });
+        }
+
         res.redirect('/dashboard');
     } catch (err) {
         console.error("Error submitting vitals", err);
         res.status(500).send("Error submitting vitals");
     }
 });
+
 
 // Route to view vitals
 app.get('/view_vitals', async (req, res) => {
@@ -424,8 +459,6 @@ app.get('/view', async (req,res)=>{
     res.render("patient_medicine.ejs",{user:info});
 })
 
-
-
 // Route to view medicine information for a specific patient
 app.get('/view/:patientId', async (req, res) => {
     const { patientId } = req.params;
@@ -437,11 +470,6 @@ app.get('/view/:patientId', async (req, res) => {
         res.status(500).send('Error fetching medicine information');
     }
 });
-
-
-
-
-
 
 // POST route to save medicine information for a specific patient
 const Medicine = require('./model/medicineSchema'); // Use the correct model for medicine
@@ -496,6 +524,6 @@ app.get('/logout', (req, res) => {
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
