@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Medicine</title>
+    <link rel="stylesheet" href="/stylesheets/Medicine Page.css">
+</head>
+<body>
+    <section class="container">
+        <header>Add Medicine:</header>
+        <form action="/medicine/<%= patientId %>" method="POST" class="form">
+            <div class="Detail">
+                <div class="input-box">
+                    <label for="medicineName">Name:</label>
+                    <input type="text" name="name" placeholder="Name of Medicine" required>
+                </div>
+        
+                <div class="input-box">
+                    <label for="programName">Program:</label>
+                    <input type="text" name="programName" placeholder="Name of Program" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="duration">Duration:</label>
+                    <input type="text" name="duration" placeholder="Duration" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="time">Time:</label>
+                    <input type="text" name="time" placeholder="Time" required>
+                </div>
+
+                <div class="symptom-box">
+                    <h3>Symptoms:</h3>
+                    <div class="symptom-option">
+                        <div class="symptomR">
+                            <input type="radio" id="Red_1" name="symptom_1" value="Red" />
+                            <label for="Red_1">Red</label>
+                        </div>
+                        <div class="symptomY">
+                            <input type="radio" id="Yellow_1" name="symptom_1" value="Yellow" />
+                            <label for="Yellow_1">Yellow</label>
+                        </div>
+                        <div class="symptomG">
+                            <input type="radio" id="Green_1" name="symptom_1" value="Green" />
+                            <label for="Green_1">Green</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="button" id="addMedicine" class="add-medicine-button">+ Add More</button>
+            </div>
+            <div class="submit">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </form>
+    </section>
+    <script>
+        document.getElementById('addMedicine').addEventListener('click', function() {
+            var medicineTemplate = document.querySelector('.Detail');
+            var newMedicine = medicineTemplate.cloneNode(true);
+
+            // Clear inputs in the cloned template
+            var inputs = newMedicine.querySelectorAll('input');
+            inputs.forEach(input => input.value = '');
+
+            // Update symptom IDs and names to be unique
+            var symptomInputs = newMedicine.querySelectorAll('.symptom-option input');
+            symptomInputs.forEach((input, index) => {
+                var newId = input.id.split('_')[0] + '_' + Date.now();
+                input.id = newId;
+                input.name = 'symptom_' + Date.now();
+                input.nextElementSibling.setAttribute('for', newId);
+            });
+
+            var form = document.querySelector('.form');
+            form.insertBefore(newMedicine, document.querySelector('.submit'));
+        });
+    </script>
+</body>
+</html>

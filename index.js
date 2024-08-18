@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const session = require("express-session");
 const multer = require("multer");
 const path = require("path");
+const UserModel = require('./model/medicineSchema')
 
 const app = express();
 
@@ -404,6 +405,84 @@ app.get('/view_vitals', async (req, res) => {
         res.status(500).send("Error fetching vitals");
     }
 });
+
+// // new medicine route;
+
+// Route to render medicine form for a specific patient
+app.get('/MD/:patientId', (req, res) => {
+    const { patientId } = req.params;
+
+    res.render('add_Md', { patientId }); // Pass patientId to the view
+});
+
+
+
+app.get('/view', async (req,res)=>{
+    //res.render('patient_medicine')
+    let info = await UserModel.find();
+    console.log(info)
+    res.render("patient_medicine.ejs",{user:info});
+})
+
+
+
+// Route to view medicine information for a specific patient
+app.get('/view/:patientId', async (req, res) => {
+    const { patientId } = req.params;
+
+    try {
+        let info = await UserModel.find({ userId: patientId }); // Filter by the specific patient's ID
+        res.render('patient_medicine.ejs', { user: info });
+    } catch (error) {
+        res.status(500).send('Error fetching medicine information');
+    }
+});
+
+
+
+
+
+
+// POST route to save medicine information for a specific patient
+const Medicine = require('./model/medicineSchema'); // Use the correct model for medicine
+
+app.post('/medicine/:patientId', async (req, res) => {
+    const { patientId } = req.params;
+    const { name, programName, duration, time } = req.body;
+
+    try {
+        let medicineInfo = await Medicine.create({
+            name,
+            programName,
+            duration,
+            time,
+            userId: patientId // Associate medicine with the specific patient
+        });
+
+        res.redirect(`/view/${patientId}`); // Redirect to view the patient's medicine
+    } catch (error) {
+        console.error('Error saving medicine information:', error);
+        res.status(500).send('Error saving medicine information');
+    }
+});
+
+// Route to view medicine information for a specific patient
+app.get('/view_medicines', async (req, res) => {
+    const { user } = req.session;
+
+    if (!user || user.role !== 'Patient') {
+        return res.redirect('/');
+    }
+
+    try {
+        let info = await UserModel.find({ userId: user._id }); // Filter by the logged-in patient’s ID
+        res.render('patient_medicine.ejs', { user: info });
+    } catch (error) {
+        console.error('Error fetching medicine information:', error);
+        res.status(500).send('Error fetching medicine information');
+    }
+});
+
 
 // Logout route
 app.get('/logout', (req, res) => {
