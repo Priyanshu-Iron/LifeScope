@@ -107,7 +107,7 @@ const upload = multer({ storage: storage });
 
 // Home route
 app.get("/", (req, res) => {
-    res.render('index'); // Assuming you have an 'index.ejs' for the homepage
+    res.redirect('Home Page.html'); 
 });
 
 // Sign-up route
