@@ -53,7 +53,7 @@ Lifescope was developed during the Galgotias University Internship Program to ad
 ## Installation
 1. 📥 Clone the repository:
    ```bash
-   git clone https://github.com/your-username/lifescope.git
+   git clone https://github.com/Priyanshu-Iron/LifeScope
    ```
 2. 📂 Navigate to the project directory:
    ```bash
